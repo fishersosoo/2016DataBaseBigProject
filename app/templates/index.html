@@ -1,0 +1,20 @@
+{% extends "base.html" %}
+{% import "bootstrap/wtf.html" as wtf %}
+{% import "bootstrap/fixes.html" as fixes %}
+{% import "bootstrap/utils.html" as util %}
+{% block navbar %}
+        <li><a href="/users/register/" >注册</a></li>
+        <li><a href="/users/login/" >登录</a></li>
+{% endblock %}
+{% block content %}
+<div class="container">
+<div class="jumbotron">
+  <h1>教育研究院专家征集系统</h1>
+  <p>进行下一步操作请进行注册或登录</p>
+  <p>
+      <a class="btn btn-primary btn-lg" href="/users/register/" role="button">注册</a>
+      <a class="btn btn-primary btn-lg" href="/users/login/" role="button">登录</a>
+  </p>
+</div>
+</div>
+{% endblock %}

@@ -1,0 +1,21 @@
+{% extends "base.html" %}
+
+
+{% block navbar %}
+      <ul class="nav navbar-nav">
+        <li class="active"><a  href="/users/register/">注册<span class="sr-only">(current)</span></a></li>
+        <li><a href="/users/login/">登录</a></li>
+      </ul>
+{% endblock %}
+
+{% block content %}
+<div class="container" >
+  <h1 align="center">专家注册</h1>
+
+    {{ wtf.quick_form(form, button_map={'submit_button': 'primary'}) }}
+
+  </form>
+  </p>
+
+</div>
+{% endblock %}

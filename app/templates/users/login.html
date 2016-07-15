@@ -1,0 +1,57 @@
+{% extends "base.html" %}
+      {% block extendscript %}
+<link href="/static/css/signin.css" rel="stylesheet">
+      {% endblock extendscript %}
+{% block navbar %}
+        <li><a href="/users/register" >注册</a></li>
+        <li class="active"><a  href="/users/login">登录<span class="sr-only">(current)</span></a></li>
+{% endblock %}
+{% block content %}
+
+
+
+
+<div class="container" >
+
+  <p>
+<form id="LoginForm" class="form-signin">
+  <!-- Single button -->
+<h2 class="form-signin-heading">用户登录</h2>
+  <div class="form-group">
+    <p>
+
+<div class="radio-inline">
+  <label>
+    <input type="radio" name="LoginRadios" id="optionsRadios1" value="1" checked>
+    专家
+  </label>
+</div>
+<div class="radio-inline">
+  <label>
+    <input type="radio" name="LoginRadios" id="optionsRadios2" value="0">
+    管理员
+  </label>
+  </div>
+</p>
+  </div>
+<div id="NameForm" class="form-group">
+  <p><label for="LoginUserName">用户名：</label><input type="text" class="form-control" id="LoginUserName" aria-describedby="Name"  placeholder="用户名" required autofocus align="center"
+  data-content="It's so simple to create a tooltip for my website!" ></p>
+  <p id="Name" class="help-block" style="display:none;">用户名必须为6到20个字符</p>
+  </div>
+  <div id="PassForm" class="form-group">
+    <p><label for="LoginPassword">密码：</label>
+    <input type="password" class="form-control" id="LoginPassword"  placeholder="密码" align="center" required>
+      <p id="Pass" class="help-block" style="display:none;">请输入密码</p>
+    </p>
+  </div>
+    <label>
+      <input id="remember"type="checkbox"> 记住我
+    </label>
+  <p><button id="login_btn" type="submit" class="btn btn-lg btn-primary btn-block">登录</button></p>
+</form>
+
+  </div>
+
+
+{% endblock %}
