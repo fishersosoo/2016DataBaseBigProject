@@ -2,6 +2,9 @@
 {% import "bootstrap/wtf.html" as wtf %}
 {% import "bootstrap/fixes.html" as fixes %}
 {% import "bootstrap/utils.html" as util %}
+      {% block extendscript %}
+<script src="/static/js/user_profile.js"></script>
+      {% endblock extendscript %}
 {% block navbar %}
         <li ><a href="/users/expert/index/" >首页</a></li>
         <li class="active"><a href="/users/expert/profile/" >专家信息录入<span class="sr-only">(current)</span></a></li>
@@ -23,12 +26,12 @@
 <table id="table_1"class="table table-bordered">
     <thead>
         <th colspan="4">
-            <button type="button" id="EditProfile" class="btn btn-default btn-sm"
+            <button type="button" id="EditProfile" class="btn btn-primary btn-sm"
                     {% if profile.IsEmpty %}
                     disabled
                     {% endif %}>编辑</button>
-            <button type="button" id="SaveProfile" class="btn btn-default btn-sm">保存</button>
-            <button type="button" id="SubmitProfile" class="btn btn-default btn-sm">提交</button>
+            <button type="button" id="SaveProfile" class="btn btn-primary btn-sm">保存</button>
+            <button type="button" id="SubmitProfile" class="btn btn-primary btn-sm">提交</button>
         </th>
     </thead>
     <thead>
@@ -39,7 +42,7 @@
     <tr>
     <tr>
         <td style="vertical-align:middle">专家证书编号</td>
-    <td id="ExpertCerificateID">
+    <td id="ExpertCertificateID">
     {% if profile.ExpertCerificateID %}
         {{ profile.ExpertCerificateID }}
     {% endif %}
@@ -67,10 +70,7 @@
     <tr>
         <td style="vertical-align:middle"><span style="color:red">*</span>专家姓名</td>
         <td>
-            <input type="text" class="form-control" id="Name" aria-describedby="Name"  placeholder="姓名"
-                   {% if profile.Name %}
-        value={{ profile.Name }} readonly
-    {% endif %}      required >
+            <input type="text" class="form-control" id="Name" aria-describedby="Name"  placeholder="姓名" base="true" required >
         </td>
     </tr>
     <tr>
@@ -78,10 +78,7 @@
             <span style="color:red">*</span>专家性别
         </td>
         <td>
-            <select id="Sex" class="form-control"
-            {% if profile.Sex %}
-            disabled>
-              <option>{{ profile.Sex }}</option>{% endif %}
+            <select id="Sex" class="form-control" base="true">
               <option>女</option>
               <option>男</option>
             </select>
@@ -93,10 +90,7 @@
            <span style="color:red">*</span>出生日期
         </td>
         <td>
-            <input type="date" class="form-control" id="Birthday" aria-describedby="Name"  placeholder="xxxx-xx-xx" required
-            {% if profile.Birthday %}
-            value={{profile.Birthday}}    readonly
-            {% endif %}>
+            <input type="date" class="form-control" id="Birthday" aria-describedby="Name" dataformatas="yyyy-mm-dd" placeholder="xxxx-xx-xx" required base="true">
         </td>
     </tr>
     <tr>
@@ -104,19 +98,13 @@
             <span style="color:red">*</span>政治面貌
         </td>
         <td>
-            <input type="text" class="form-control" id="PoliticalStatus" aria-describedby="Name"  placeholder="政治面貌" required
-            {% if profile.PoliticalStatus %}
-            value={{profile.PoliticalStatus}}    readonly
-            {% endif %}>
+            <input type="text" class="form-control" id="PoliticalStatus" aria-describedby="Name"  placeholder="政治面貌" required base="true">
         </td>
         <td style="vertical-align:middle">
             <span style="color:red">*</span>证件类型
         </td>
         <td>
-            <select id="Identification" class="form-control"
-            {% if profile.Identification %}
-            disabled>
-              <option>{{profile.Identification}}</option>{% endif %}>
+            <select id="Identification" class="form-control" base="true">
               <option>居民身份证</option>
               <option>护照</option>
             </select>
@@ -127,19 +115,13 @@
             <span style="color:red">*</span>颁发机构
         </td>
         <td>
-            <input type="text" class="form-control" id="Organization" aria-describedby="Name"  placeholder="颁发机构" required
-            {% if profile.Organization %}
-            value={{profile.Organization}}    readonly
-            {% endif %}>
+            <input type="text" class="form-control" id="Organization" aria-describedby="Name"  placeholder="颁发机构" required base="true">
         </td>
         <td style="vertical-align:middle">
             <span style="color:red">*</span>证件编号
         </td>
         <td>
-            <input type="text" class="form-control" id="IDNo" aria-describedby="Name"  placeholder="证件编号" required
-            {% if profile.IDNo %}
-            value={{profile.IDNo}}    readonly
-            {% endif %}>
+            <input type="text" class="form-control" id="IDNo" aria-describedby="Name"  placeholder="证件编号" required base="true">
         </td>
     </tr>
     <tr>
@@ -147,10 +129,7 @@
             <span style="color:red">*</span>最高学历
         </td>
         <td>
-            <select id="EducationalBackground" class="form-control"
-            {% if profile.EducationalBackground %}
-             disabled>
-              <option>{{profile.EducationalBackground}}</option>{% endif %}
+            <select id="EducationalBackground" class="form-control" base="true">
               <option>博士研究生</option>
               <option>硕士研究生</option>
               <option>学士</option>
@@ -161,10 +140,7 @@
             <span style="color:red">*</span>最高学位
         </td>
         <td>
-            <select id="Degree" class="form-control"
-            {% if profile.Degree %}
-             disabled>
-              <option>{{profile.Degree}}</option>{% endif %}
+            <select id="Degree" class="form-control"base="true">
               <option>博士</option>
               <option>硕士</option>
               <option>学士</option>
@@ -177,19 +153,13 @@
             <span style="color:red">*</span>职称
         </td>
         <td>
-            <input type="text" class="form-control" id="Title" aria-describedby="Name"  placeholder="职称" required
-            {% if profile.Degree %}
-            value={{profile.Degree}} readonly
-            {% endif %}>
+            <input type="text" class="form-control" id="Title" aria-describedby="Name"  placeholder="职称" required base="true">
         </td>
         <td style="vertical-align:middle">
             <span style="color:red">*</span>证书编号
         </td>
         <td>
-            <input type="text" class="form-control" id="CertificateID" aria-describedby="Name"  placeholder="证书编号" required
-            {% if profile.CertificateID %}
-            value={{profile.CertificateID}} readonly
-            {% endif %}>
+            <input type="text" class="form-control" id="CertificateID" aria-describedby="Name"  placeholder="证书编号" required base="true">
         </td>
     </tr>
     <tr>
@@ -197,19 +167,13 @@
             <span style="color:red">*</span>职务
         </td>
         <td>
-            <input type="text" class="form-control" id="Job" aria-describedby="Name"  placeholder="职称" required
-            {% if profile.Job %}
-            value={{profile.Job}} readonly
-            {% endif %}>
+            <input type="text" class="form-control" id="Job" aria-describedby="Name"  placeholder="职称" required base="true">
         </td>
         <td style="vertical-align:middle">
             <span style="color:red">*</span>从业时长
         </td>
         <td>
-            <select id="WorkingTime" class="form-control"
-            {% if profile.WorkingTime %}
-            disabled>
-              <option>{{profile.WorkingTime}}</option>{% endif %}
+            <select id="WorkingTime" class="form-control" base="true">
               <option>五年及以上</option>
               <option>四年</option>
               <option>三年</option>
@@ -223,10 +187,7 @@
             <span style="color:red">*</span>是否退休
         </td>
         <td>
-            <select id="IsRetire" class="form-control"
-            {% if profile.IsRetire %}
-            disabled>
-              <option>{{profile.IsRetire}}</option>{% endif %}
+            <select id="IsRetire" class="form-control" base="true">
               <option>是</option>
               <option>否</option>
             </select>
@@ -235,10 +196,7 @@
             <span style="color:red">*</span>是否兼职
         </td>
         <td>
-            <select id="IsParttime" class="form-control"
-            {% if profile.IsParttime %}
-            disabled>
-              <option>{{profile.IsParttime}}</option>{% endif %}
+            <select id="IsParttime" class="form-control" base="true">
               <option>是</option>
               <option>否</option>
             </select>
@@ -249,10 +207,7 @@
             <span style="color:red">*</span>工作单位
         </td>
         <td  colspan="3">
-            <input type="text" class="form-control" id="Department" aria-describedby="Name"  placeholder="工作单位" required
-            {% if profile.Department %}
-            value={{profile.Department}} readonly
-            {% endif %}>
+            <input type="text" class="form-control" id="Department" aria-describedby="Name"  placeholder="工作单位" required base="true">
         </td>
     </tr>
     <tr>
@@ -260,10 +215,7 @@
             <span style="color:red">*</span>详细通讯地址
         </td>
         <td  colspan="3">
-            <input type="text" class="form-control" id="Address" aria-describedby="Name"  placeholder="详细通讯地址" required
-            {% if profile.Address %}
-            value={{profile.Address}} readonly
-            {% endif %}>
+            <input type="text" class="form-control" id="Address" aria-describedby="Name"  placeholder="详细通讯地址" required base="true">
         </td>
     </tr>
     <tr>
@@ -271,19 +223,13 @@
             <span style="color:red">*</span>邮政编码
         </td>
         <td>
-            <input type="text" class="form-control" id="ZipCode" aria-describedby="Name"  placeholder="邮政编码" required
-            {% if profile.ZipCode %}
-            value={{profile.ZipCode}} readonly
-            {% endif %}>
+            <input type="text" class="form-control" id="ZipCode" aria-describedby="Name"  placeholder="邮政编码" required base="true">
         </td>
         <td style="vertical-align:middle">
             <span style="color:red">*</span>电子邮件
         </td>
         <td>
-            <input type="email" class="form-control" id="Email" aria-describedby="EmailStatus"  placeholder="电子邮件" required
-            {% if profile.Email %}
-            value={{profile.Email}} readonly
-            {% endif %}>
+            <input type="email" class="form-control" id="Email" aria-describedby="EmailStatus"  placeholder="电子邮件" required base="true">
         </td>
     </tr>
     <tr>
@@ -291,19 +237,13 @@
             <span style="color:red">*</span>移动电话
         </td>
         <td>
-            <input type="tel" class="form-control" id="MobileNum" aria-describedby="Name"  placeholder="移动电话" required
-            {% if profile.MobileNum %}
-            value={{profile.MobileNum}} readonly
-            {% endif %}>
+            <input type="tel" class="form-control" id="MobileNum" aria-describedby="Name"  placeholder="移动电话" required base="true">
         </td>
         <td style="vertical-align:middle">
             <span style="color:red">*</span>家庭电话
         </td>
         <td>
-            <input type="tel" class="form-control" id="HomeNum" aria-describedby="Name"  placeholder="家庭电话" required
-            {% if profile.HomeNum %}
-            value={{profile.HomeNum}} readonly
-            {% endif %}>
+            <input type="tel" class="form-control" id="HomeNum" aria-describedby="Name"  placeholder="家庭电话" required base="true">
         </td>
     </tr>
     <tr>
@@ -311,10 +251,7 @@
             <span style="color:red">*</span>毕业院校及专业
         </td>
         <td  colspan="3">
-            <input type="text" class="form-control" id="GraduatedFrom" aria-describedby="Name"  placeholder="毕业院校及专业" required
-            {% if profile.HomeNum %}
-            value={{profile.HomeNum}} readonly
-            {% endif %}>
+            <input type="text" class="form-control" id="GraduatedFrom" aria-describedby="Name"  placeholder="毕业院校及专业" required base="true">
         </td>
     </tr>
     <span id="QualificationNum" class="sr-only">{% if profile.QualificationNum %}{{profile.QualificationNum}}{%else%}1{% endif %}</span>
@@ -365,7 +302,7 @@
 
         </td>
         <td >
-            <span id="AreaNum" class="sr-only">0</span>
+            <span id="AreaNum" class="sr-only">{% if profile.ReviewAreaTwo %}2{% else %}{% if profile.ReviewAreaOne %}1{%else%}0{% endif %}{% endif %}</span>
             <!--选择评审领域 -->
             <button type="button"id="SeleteReviewArea" class="btn btn-primary btn" data-toggle="modal" data-target="#SeleteReviewAreaModal" width="10" height="10">
               选择评审领域

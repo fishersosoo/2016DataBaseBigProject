@@ -1,0 +1,34 @@
+{% extends "base.html" %}
+{% import "bootstrap/wtf.html" as wtf %}
+{% import "bootstrap/fixes.html" as fixes %}
+{% import "bootstrap/utils.html" as util %}
+      {% block extendscript %}
+<link href="/static/css/cover.css" rel="stylesheet">
+      {% endblock extendscript %}
+{% block navbar %}
+        <li class="active"><a href="/users/admin/index/" >首页<span class="sr-only">(current)</span></a></li>
+        <li><a href="/users/admin/profile/all/" >专家信息维护</a></li>
+        <li><a href="/users/admin/detail/" >专家详细页面</a></li>
+{% endblock %}
+
+{% block navbarright %}
+<ul class="nav navbar-nav navbar-right">
+
+    <li><a href="#" class="btn btn-default btn-lg disabled" role="button">{% if current_user.is_authenticated %}
+  Hi {{ current_user.UserName }} !
+{% endif %}</a>
+    </li>
+    <li><a href="/users/logout/" >注销</a></li>
+</ul>
+
+{% endblock %}
+  {% block message %}
+<div class="container">
+{% for message in get_flashed_messages() %}
+  <div class="alert alert-success">
+      <button type="button" class="close" data-dismiss="alert">×</button> {{ message }}{% endfor %}
+  </div>
+    </div>
+  {% endblock  %}
+{% block content %}
+{% endblock %}

@@ -2,6 +2,7 @@
 from __future__ import absolute_import
 
 import json
+from datetime import time
 from sqlite3 import IntegrityError
 
 from flask_bootstrap import Bootstrap
@@ -19,12 +20,26 @@ mod=Blueprint('users',__name__)
 def load_user(user_id):
     return User.query.filter(User.UserName==user_id).first()
 
+@mod.route('/expert/getprofile/')
+@login_required
+def getprofile():
+    UserName=current_user.UserName
+    expert_info=Expert_info.query.filter(Expert_info.UserName==UserName).first()
+    if(expert_info.__dict__['Birthday']!=None):
+        expert_info.__dict__['Birthday']=expert_info.__dict__['Birthday'].isoformat()
+    if(expert_info.__dict__['ValidTime']!=None):
+        expert_info.__dict__['ValidTime']=expert_info.__dict__['ValidTime'].isoformat()
+    expert_info.__dict__['_sa_instance_state']=''
+    print expert_info.__dict__
+    return json.dumps(expert_info.__dict__)
+
 @mod.route('/expert/profile/')
 @login_required
 def expertprofile():
     UserName=current_user.UserName
     the_profile=Profile(UserName)
-    print the_profile.Name
+    the_profile.ReviewAreaOne=Expert_info.query.filter(Expert_info.UserName==UserName).first().ReviewAreaOne
+    the_profile.ReviewAreaTwo=Expert_info.query.filter(Expert_info.UserName==UserName).first().ReviewAreaTwo
     return render_template('users/profile.html',profile=the_profile)
 
 @mod.route('/expert/changepassword/')
@@ -37,13 +52,34 @@ def expertchangepassword():
 def expertindex():
     return render_template('users/expertindex.html')
 
+@mod.route('/admin/profile/all/')
+@login_required
+def admin_profileall():
+    expert_infos=Expert_info.query.filter().all()
+    List=[]
+    for one in expert_infos:
+        List.append({'ExpertCertificateID':one.ExpertCertificateID,'ExpertCertificateID':one.ExpertCertificateID,'Name':one.Name,'MobileNum':one.MobileNum,'Statue':one.Statue,'UserName':one.UserName})
+    return render_template('users/adminprofile.html')
+
+@mod.route('/admin/profile/')
+@login_required
+def admin_profile():
+    area=request.values.get('Area')
+    statue=request.values.get('Statue')
+    expert_infos=Expert_info.query.filter(Expert_info.ReviewAreaOne==area|Expert_info.ReviewAreaTwo==area,Expert_info.Statue==statue).all()
+    List=[]
+    for one in expert_infos:
+        List.append({'ExpertCertificateID':one.ExpertCertificateID,'ExpertCertificateID':one.ExpertCertificateID,'Name':one.Name,'MobileNum':one.MobileNum,'Statue':one.Statue,'UserName':one.UserName})
+    return List
+
 @mod.route('/login/',methods=('GET','POST'))
 def login_view():
     if request.method == 'GET':
         render_template('users/login.html')
     if request.method == 'POST':
-        # user = User.query.filter(User.UserName ==  request.values.get('UserName'),User.Password ==  request.values.get('Password')).first()
-        user = User.query.filter(User.UserName ==  "sosoo",User.Password == "1995101010").first()
+        print request.values.get('LoginRadio')
+        user = User.query.filter(User.UserName ==  request.values.get('UserName'),User.Password ==  request.values.get('Password'),User.Type==request.values.get('LoginRadio')).first()
+        # user = User.query.filter(User.UserName ==  "sosoo",User.Password == "1995101010").first()
         if user != None:
             remember= request.values.get('Remember')
             if remember =='on':
@@ -53,15 +89,39 @@ def login_view():
             login_user(user,remember=remember)
             flash(u"登录成功")
             # redirect(url_for('index'))
+            if (request.values.get('LoginRadio')=='0'):
+                return 'admin'
             return 'index'
         else:
             flash(u"用户名或密码错误")
             return ''
     return render_template('users/login.html')
 
+@mod.route('/login/admin')
+def login_admin():
+    return render_template('users/adminindex.html')
+
 @mod.route('/login/index')
 def index_view():
     return render_template('users/expertindex.html')
+
+@mod.route('/changecode/',methods=('GET', 'POST'))
+@login_required
+def ChangeCode():
+    user_name=user_name=current_user.UserName
+    old=request.values.get('Old_Code')
+    new=request.values.get('New_Code')
+    user=User.query.filter(User.UserName==user_name,User.Password==old).first()
+    if user:
+        user.Password=new
+        user.save()
+        logout_user()
+        flash(u"成功修改密码，请重新登录",category=u'success')
+        return 'index'
+    else:
+        flash(u"密码错误",category=u'success')
+        return 'invalid'
+
 
 @mod.route('/register/', methods=('GET', 'POST'))
 def register_view():
@@ -84,6 +144,10 @@ def register_view():
             login_user(user)
             return redirect(url_for('index'))
     return render_template('users/register.html', form=form)
+
+@mod.route('/expert/changepassword/index/', methods=('GET', 'POST'))
+def changepassword_index():
+    return redirect(url_for('index'))
 
 @login_required
 @mod.route('/logout/')
@@ -182,6 +246,53 @@ def Deleteworking_experience():
     db.session.delete(working_experience)
     db.session.commit()
     return "good"
+
+@login_required
+@mod.route('/expert/profile/submit/',methods=('GET', 'POST'))
+def Submit_Profile():
+    user_name=user_name=current_user.UserName
+    expert_info=Expert_info.query.filter(Expert_info.UserName==user_name).first()
+    expert_info.Submitted=True
+    expert_info.Statue=u'审核中'
+    expert_info.save()
+    return make_response('1')
+
+@login_required
+@mod.route('/expert/profile/save/',methods=('GET', 'POST'))
+def Save_Profile():
+    user_name=user_name=current_user.UserName
+    expert_info=Expert_info.query.filter(Expert_info.UserName==user_name).first()
+    expert_info.Sex=request.values.get("Sex")
+    expert_info.Name=request.values.get("Name")
+    expert_info.Statue=u'填写中'
+    if(request.values.get("Birthday")==""):
+        expert_info.Birthday="1900-01-01"
+    else:
+        expert_info.Birthday=request.values.get("Birthday")
+    expert_info.PoliticalStatus=request.values.get("PoliticalStatus")
+    expert_info.Organization=request.values.get("Organization")
+    expert_info.EducationalBackground=request.values.get("EducationalBackground")
+    expert_info.Degree=request.values.get("Degree")
+    expert_info.Identification=request.values.get("Identification")
+    expert_info.IDNo=request.values.get("IDNo")
+    expert_info.Title=request.values.get("Title")
+    expert_info.CertificateID=request.values.get("CertificateID")
+    expert_info.Job=request.values.get("Job")
+    expert_info.WorkingTime=request.values.get("WorkingTime")
+    expert_info.IsRetire=request.values.get("IsRetire")
+    expert_info.IsParttime=request.values.get("IsParttime")
+    expert_info.Department=request.values.get("Department")
+    expert_info.Address=request.values.get("Address")
+    expert_info.Email=request.values.get("Email")
+    expert_info.MobileNum=request.values.get("MobileNum")
+    expert_info.ZipCode=request.values.get("ZipCode")
+    expert_info.HomeNum=request.values.get("HomeNum")
+    expert_info.GraduatedFrom=request.values.get("GraduatedFrom")
+    expert_info.Skill=request.values.get("Skill")
+    expert_info.Achievement=request.values.get("Achievement")
+    expert_info.Others=request.values.get("Others")
+    expert_info.save()
+    return make_response('1')
 
 @login_required
 @mod.route('/expert/profile/Addavoid_unit/')

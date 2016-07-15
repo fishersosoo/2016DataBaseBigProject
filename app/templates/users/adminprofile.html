@@ -1,0 +1,72 @@
+{% extends "base.html" %}
+{% import "bootstrap/wtf.html" as wtf %}
+{% import "bootstrap/fixes.html" as fixes %}
+{% import "bootstrap/utils.html" as util %}
+      {% block extendscript %}
+<link href="/static/css/cover.css" rel="stylesheet">
+      {% endblock extendscript %}
+{% block navbar %}
+        <li><a href="/users/admin/index/" >首页<span class="sr-only">(current)</span></a></li>
+        <li class="active"><a href="/users/admin/profile/all/" >专家信息维护<span class="sr-only">(current)</span></a></li>
+        <li><a href="/users/admin/detail/" >专家详细页面</a></li>
+{% endblock %}
+
+{% block navbarright %}
+<ul class="nav navbar-nav navbar-right">
+
+    <li><a href="#" class="btn btn-default btn-lg disabled" role="button">{% if current_user.is_authenticated %}
+  Hi {{ current_user.UserName }} !
+{% endif %}</a>
+    </li>
+    <li><a href="/users/logout/" >注销</a></li>
+</ul>
+
+{% endblock %}
+  {% block message %}
+<div class="container">
+{% for message in get_flashed_messages() %}
+  <div class="alert alert-success">
+      <button type="button" class="close" data-dismiss="alert">×</button> {{ message }}{% endfor %}
+  </div>
+    </div>
+  {% endblock  %}
+{% block content %}
+<div class="container">
+<table id="table_admin_1"class="table table-bordered">
+    <thead>
+    <form class="form-inline">
+    <div class="form-group">
+    <label for="AreaQuery">评审领域</label>
+    <select id="AreaQuery" class="form-control" width="140">
+        <option>幼儿园教育评估</option>
+        <option>小学教育评估</option>
+        <option>中学教育评估</option>
+        <option>中职教育评估</option>
+        <option>高职教育评估</option>
+        <option>高校教育评估</option>
+    </select>
+    </div>
+    <div class="form-group" style="width:30">
+    <label for="AreaQuery">状态</label>
+    <select id="StatueQuery" class="form-control" >
+        <option>填写中</option>
+        <option>已驳回</option>
+        <option>审核中</option>
+        <option>失效</option>
+        <option>可用</option>
+    </select>
+    </div>
+    <button type="submit" id="Query"  class="btn btn-primary" >确认</button>
+    </form>
+    </thead>
+    <p></p>
+    <tbody>
+    <tr id="admin_head">
+        <th>专家编号</th><th>专家名</th><th>工作单位</th><th>联系电话</th><th>状态</th><th>操作</th>
+    </tr>
+    </tbody>
+</table>
+</div>
+
+
+{% endblock %}

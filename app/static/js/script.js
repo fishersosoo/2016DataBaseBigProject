@@ -116,7 +116,6 @@ function CheckIsEmpty(id,form_id,words)
     {
     a=a+1;
     }
-    var three=$("#Area3").text();
     body.find("[value="+one+"]").prop('checked',true);
     body.find("[value="+two+"]").prop('checked',true);
     $("#AreaNum").text(a);
@@ -379,5 +378,171 @@ function CheckIsEmpty(id,form_id,words)
                  row.remove()
              }
     )
+    })
+    $("#table_1").on('click',"#SaveProfile",function(e)
+    {
+     $.post('/users/expert/profile/save/',
+    {
+    "Sex":$("#Sex").val(),
+    "Name":$("#Name").val(),
+    "Birthday":$("#Birthday").val(),
+    "PoliticalStatus":$("#PoliticalStatus").val(),
+    "Organization":$("#Organization").val(),
+    "EducationalBackground":$("#EducationalBackground").val(),
+    "Degree":$("#Degree").val(),
+    "Identification":$("#Identification").val(),
+    "IDNo":$("#IDNo").val(),
+    "Title":$("#Title").val(),
+    "CertificateID":$("#CertificateID").val(),
+    "Job":$("#Job").val(),
+    "WorkingTime":$("#WorkingTime").val(),
+    "IsRetire":$("#IsRetire").val(),
+    "IsParttime":$("#IsParttime").val(),
+    "Department":$("#Department").val(),
+    "Address":$("#Address").val(),
+    "Email":$("#Email").val(),
+    "MobileNum":$("#MobileNum").val(),
+    "ZipCode":$("#ZipCode").val(),
+    "HomeNum":$("#HomeNum").val(),
+    "GraduatedFrom":$("#GraduatedFrom").val(),
+    "Skill":$("#Skill").val(),
+    "Achievement":$("#Achievement").val(),
+    "Others":$("#Others").val()
+    }
+    ,function(data,status){$("#Statue").text("填写中")})
+    }
+    )
+    //提交
+    $("#table_1").on('click',"#SubmitProfile",function(e)
+    {
+    var legal=true
+    $("[base='true']").each(function()
+    {if($(this).val()=='')
+    {
+    $(this).attr("data-content","必须填写填写");
+    $(this).popover({placement:'bottom'});
+    $(this).popover({trigger:'manual'});
+    $(this).popover('show');
+    legal=false
+    }
+    })
+    if(!legal)
+    {
+    return
+    }
+    $.post('/users/expert/profile/save/',
+    {
+    "Sex":$("#Sex").val(),
+    "Name":$("#Name").val(),
+    "Birthday":$("#Birthday").val(),
+    "PoliticalStatus":$("#PoliticalStatus").val(),
+    "Organization":$("#Organization").val(),
+    "EducationalBackground":$("#EducationalBackground").val(),
+    "Degree":$("#Degree").val(),
+    "Identification":$("#Identification").val(),
+    "IDNo":$("#IDNo").val(),
+    "Title":$("#Title").val(),
+    "CertificateID":$("#CertificateID").val(),
+    "Job":$("#Job").val(),
+    "WorkingTime":$("#WorkingTime").val(),
+    "IsRetire":$("#IsRetire").val(),
+    "IsParttime":$("#IsParttime").val(),
+    "Department":$("#Department").val(),
+    "Address":$("#Address").val(),
+    "Email":$("#Email").val(),
+    "MobileNum":$("#MobileNum").val(),
+    "ZipCode":$("#ZipCode").val(),
+    "HomeNum":$("#HomeNum").val(),
+    "GraduatedFrom":$("#GraduatedFrom").val(),
+    "Skill":$("#Skill").val(),
+    "Achievement":$("#Achievement").val(),
+    "Others":$("#Others").val()
+    }
+    ,function(data,status){})
+    $.post('/users/expert/profile/submit/',function(data,status){
+    $("#SaveProfile").attr("disabled",true)
+    $("#SubmitProfile").attr("disabled",true)
+    $.get('/users/expert/getprofile/',function(data,statue)
+    {
+        var d = $.parseJSON(data);
+        for(var key in d)
+        {
+        $("#"+key).val(d[key])
+        }
+        $("#Statue").text(d["Statue"])
+        if(d["ExpertCertificateID"]!=null){
+        $("#ExpertCertificateID").text(d["ExpertCertificateID"])
+        $("#ValidTime").text(d["ValidTime"])
+        }
+        if(d["Statue"]=="填写中")
+        {
+            $('Textarea').attr("disabled",false)
+            $('button').attr("disabled",false)
+            $("#SaveProfile").attr("disabled",false)
+            $("#SubmitProfile").attr("disabled",false)
+            $("#EditProfile").attr("disabled",true)
+        }
+        if(d["Statue"]!="填写中")
+        {
+        $('Textarea').attr("disabled",true)
+        $('button').attr("disabled",true)
+        $("#EditProfile").attr("disabled",false)
+        }
+        if(d["Submitted"]==true)
+        {
+        $("[base='true']").attr("disabled",true)
+        }
+    });
+    })
+    })
+    $("#table_1").on('click',"#EditProfile",function(e)
+    {
+    $("#SaveProfile").attr("disabled",false)
+    $("#SubmitProfile").attr("disabled",false)
+    $('button').attr("disabled",false)
+    })
+    $("#ChangeCodeForm").on('click',"#ChangeCodeSubmit",function(e)
+    {
+    e.preventDefault()
+    var one=$("#New_Code").val()
+    var two=$("#NGNew_Code").val()
+    if(one!=two)
+    {
+            $('#NGNew_CodeForm').attr("class","form-group has-error");
+            $("#NGNew_Code").attr("data-content","两次输入密码不一致！");
+            $("#NGNew_Code").popover({placement:'bottom'});
+            $("#NGNew_Code").popover({trigger:'manual'});
+            $("#NGNew_Code").popover('show');
+            return;
+    }
+    $.post('/users/changecode/',
+    {
+    'New_Code':one,
+    'Old_Code':$("#Old_Code").val()
+    },
+    function(data,statue)
+    {
+        alert()
+        if(data=='invalid')
+        {
+        location.reload();
+        }
+        else
+        {
+        location.href=data;
+        }
+    })
+    })
+    $("#ChangeCodeForm").on('blur',"#New_Code",function(e)
+    {
+        var l=$("#New_Code").val().length;
+        if(l<=6|l>=20)
+        {
+            $('#New_CodeForm').attr("class","form-group has-error");
+            $("#New_Code").attr("data-content","密码长度必须为6-20个字符！");
+            $("#New_Code").popover({placement:'bottom'});
+            $("#New_Code").popover({trigger:'manual'});
+            $("#New_Code").popover('show');
+        }
     })
 });

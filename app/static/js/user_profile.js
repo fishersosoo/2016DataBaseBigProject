@@ -1,0 +1,33 @@
+$(document).on('ready',function(){
+$.get('/users/expert/getprofile/',function(data,statue)
+{
+var d = $.parseJSON(data);
+for(var key in d)
+{
+$("#"+key).val(d[key])
+}
+$("#Statue").text(d["Statue"])
+if(d["ExpertCertificateID"]!=null){
+$("#ExpertCertificateID").text(d["ExpertCertificateID"])
+$("#ValidTime").text(d["ValidTime"])
+}
+if(d["Statue"]=="填写中")
+{
+    $('Textarea').attr("disabled",false)
+    $('button').attr("disabled",false)
+    $("#SaveProfile").attr("disabled",false)
+    $("#SubmitProfile").attr("disabled",false)
+    $("#EditProfile").attr("disabled",true)
+}
+if(d["Statue"]!="填写中")
+{
+$('Textarea').attr("disabled",true)
+$('button').attr("disabled",true)
+$("#EditProfile").attr("disabled",false)
+}
+if(d["Submitted"]==true)
+{
+$("[base='true']").attr("disabled",true)
+}
+});
+})
