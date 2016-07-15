@@ -324,7 +324,7 @@ function CheckIsEmpty(id,form_id,words)
     }
     else
     {
-    //do nothing
+        //do nothing
     }
     });
     $("#table_3").on('click',"#deleteworking_experience",function(e)
@@ -342,4 +342,42 @@ function CheckIsEmpty(id,form_id,words)
     }
     )
     });
+    $("#table_4").on('click',"#Addavoid_unitModalSubmit",function(e)
+    {
+    if(!CheckIsEmpty("UnitName","UnitNameForm","请输入单位名称"))
+    {
+        var UnitName=$("#UnitName").val()
+        var IsWorking=$("#IsWorking").val()
+        $.get('/users/expert/profile/Addavoid_unit/?UnitName='+UnitName+'&IsWorking='+IsWorking,
+        function(data,status)
+        {
+                if(data=='exist')
+            {
+            alert("您已有相同的回避单位！")
+            return
+            }
+                else
+            {
+            $("#AvoidH").after('<tr><td>'+UnitName+'</td><td>'+IsWorking+'</td><td><button id="DeleteAvoid_Unit" type="button" class="btn btn-default" >删除</button></td></tr>')
+            ClearInput("UnitName","UnitNameForm");
+            $("#Addavoid_unitModal").modal('toggle');
+            $("#Addavoid_unitModal").modal('hide');
+            }
+        })
+    }
+    else
+    {
+        //do nothing
+    }
+    })
+    $("#table_4").on('click',"#DeleteAvoid_Unit",function(e){
+         var row=$(this).parent().parent()
+         var UnitName=$(this).parent().prev().prev().text()
+         $.get('/users/expert/profile/Deleteavoid_unit/?UnitName='+UnitName,
+             function(data,status)
+             {
+                 row.remove()
+             }
+    )
+    })
 });

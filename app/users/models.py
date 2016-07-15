@@ -34,12 +34,10 @@ class Avoid_unit(db.Model):
     UserName = db.Column(db.String(20), db.ForeignKey('user.UserName'), primary_key=True )
     UnitName = db.Column(db.String(20),  primary_key=True )
     IsWorking = db.Column(db.String(2), nullable=False)
-    def __init__(self, UnitName, IsWorking):
+    def __init__(self, UnitName, IsWorking,UserName):
         self.UnitName=UnitName
-        if IsWorking:
-            self.IsWorking=u"是"
-        else:
-            self.IsWorking=u"否"
+        self.IsWorking=IsWorking
+        self.UserName=UserName
 
     def setID(self,id):
         self.ID=unicode("Avoid_unit_"+str(id))

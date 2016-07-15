@@ -10,7 +10,8 @@ from flask_login import login_user, logout_user, login_required, current_user
 from app import app, db, login_manager
 from app.users.forms import LoginForm
 from app.users.forms import RegistrationForm
-from app.users.models import User ,Profile, Expert_info, Qualification, Appraise_experience, Working_experience
+from app.users.models import User ,Profile, Expert_info, Qualification, Appraise_experience, Working_experience, \
+    Avoid_unit
 
 mod=Blueprint('users',__name__)
 
@@ -179,5 +180,27 @@ def Deleteworking_experience():
                                               ,Working_experience.EndTime==request.values.get('et'),Working_experience.Unit==request.values.get('WorkingUnit')
                                               ,Working_experience.Duty==request.values.get('Duty'),Working_experience.Witness==request.values.get('Witness')).first()
     db.session.delete(working_experience)
+    db.session.commit()
+    return "good"
+
+@login_required
+@mod.route('/expert/profile/Addavoid_unit/')
+def Addavoid_unit():
+    user_name=user_name=current_user.UserName
+    avoid_unit=Avoid_unit.query.filter(Avoid_unit.UserName==user_name,Avoid_unit.UnitName==request.values.get('UnitName')).first()
+    if avoid_unit:
+        return 'exist'
+    else:
+        avoid_unit=Avoid_unit(UserName=user_name,UnitName=request.values.get('UnitName'),IsWorking=request.values.get('IsWorking'))
+        db.session.add(avoid_unit)
+        db.session.commit()
+        return "good"
+
+@login_required
+@mod.route('/expert/profile/Deleteavoid_unit/')
+def Deleteavoid_unit():
+    user_name=user_name=current_user.UserName
+    avoid_unit=Avoid_unit.query.filter(Avoid_unit.UserName==user_name,Avoid_unit.UnitName==request.values.get('UnitName')).first()
+    db.session.delete(avoid_unit)
     db.session.commit()
     return "good"
