@@ -36,7 +36,7 @@
 <div class="container">
   <div class="jumbotron">
   <h1>Welcom Back! </h1>
-  <p>系统中有{% if num %}{{num}}{%endif%}名专家等待审核</p>
+  <p>系统中有{% if num %}{{num}}{% else %}0{%endif%}名专家等待审核</p>
   <p><a class="btn btn-primary btn-lg" href="/users/admin/profile/all/?wait=1" role="button">查看</a></p>
 </div>
     </div>

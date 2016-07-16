@@ -3,13 +3,8 @@
   <component name="ChangeListManager">
     <list default="true" id="c5432b3c-1919-4b19-a205-bed6e23f30b4" name="Default" comment="">
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/static/js/adminprofile.js" afterPath="$PROJECT_DIR$/app/static/js/adminprofile.js" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/static/js/script.js" afterPath="$PROJECT_DIR$/app/static/js/script.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/templates/base.html" afterPath="$PROJECT_DIR$/app/templates/base.html" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/templates/users/adminindex.html" afterPath="$PROJECT_DIR$/app/templates/users/adminindex.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/templates/users/adminprofile.html" afterPath="$PROJECT_DIR$/app/templates/users/adminprofile.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/templates/users/details.html" afterPath="$PROJECT_DIR$/app/templates/users/details.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/templates/users/expertindex.html" afterPath="$PROJECT_DIR$/app/templates/users/expertindex.html" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/users/views.py" afterPath="$PROJECT_DIR$/app/users/views.py" />
     </list>
     <ignored path="PyLearning.iws" />
@@ -33,8 +28,8 @@
             <file leaf-file-name="adminindex.html" pinned="false" current-in-tab="true">
               <entry file="file://$PROJECT_DIR$/app/templates/users/adminindex.html">
                 <provider selected="true" editor-type-id="text-editor">
-                  <state vertical-scroll-proportion="0.75728154">
-                    <caret line="39" column="51" selection-start-line="39" selection-start-column="51" selection-end-line="39" selection-end-column="70" />
+                  <state vertical-scroll-proportion="0.57360405">
+                    <caret line="34" column="19" selection-start-line="34" selection-start-column="19" selection-end-line="34" selection-end-column="19" />
                     <folding />
                   </state>
                 </provider>
@@ -51,8 +46,8 @@
             <file leaf-file-name="script.js" pinned="false" current-in-tab="true">
               <entry file="file://$PROJECT_DIR$/app/static/js/script.js">
                 <provider selected="true" editor-type-id="text-editor">
-                  <state vertical-scroll-proportion="0.96802557">
-                    <caret line="654" column="41" selection-start-line="654" selection-start-column="32" selection-end-line="654" selection-end-column="41" />
+                  <state vertical-scroll-proportion="0.31254995">
+                    <caret line="641" column="23" selection-start-line="641" selection-start-column="23" selection-end-line="668" selection-end-column="13" />
                     <folding />
                   </state>
                 </provider>
@@ -69,11 +64,21 @@
   </component>
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="375">
-      <file leaf-file-name="expertindex.html" pinned="false" current-in-tab="true">
+      <file leaf-file-name="models.py" pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/app/users/models.py">
+          <provider selected="true" editor-type-id="text-editor">
+            <state vertical-scroll-proportion="0.36865672">
+              <caret line="128" column="21" selection-start-line="125" selection-start-column="13" selection-end-line="128" selection-end-column="21" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="expertindex.html" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/app/templates/users/expertindex.html">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.66831195">
-              <caret line="34" column="31" selection-start-line="34" selection-start-column="31" selection-end-line="34" selection-end-column="31" />
+            <state vertical-scroll-proportion="-27.060606">
+              <caret line="43" column="12" selection-start-line="43" selection-start-column="12" selection-end-line="43" selection-end-column="12" />
               <folding>
                 <element signature="n#style#0;n#span#0;n#td#0;n#tr#0;n#table#0;n#div#0;n#div#1;n#!!top" expanded="true" />
               </folding>
@@ -84,13 +89,12 @@
       <file leaf-file-name="views.py" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/app/users/views.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="-12.0625">
-              <caret line="197" column="8" selection-start-line="197" selection-start-column="8" selection-end-line="197" selection-end-column="8" />
-              <caret line="198" column="8" selection-start-line="198" selection-start-column="8" selection-end-line="198" selection-end-column="8" />
+            <state vertical-scroll-proportion="-22.5625">
+              <caret line="212" column="36" selection-start-line="212" selection-start-column="36" selection-end-line="212" selection-end-column="36" />
               <folding>
                 <element signature="e#24#62#0" expanded="true" />
-                <element signature="e#10302#11082#0" expanded="false" />
-                <element signature="e#12143#12667#0" expanded="false" />
+                <element signature="e#10545#11325#0" expanded="false" />
+                <element signature="e#12386#12910#0" expanded="false" />
               </folding>
             </state>
           </provider>
@@ -101,16 +105,6 @@
           <provider selected="true" editor-type-id="text-editor">
             <state vertical-scroll-proportion="0.0">
               <caret line="18" column="38" selection-start-line="18" selection-start-column="38" selection-end-line="18" selection-end-column="38" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="changepassword.html" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/app/templates/users/changepassword.html">
-          <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="-19.333334">
-              <caret line="30" column="118" selection-start-line="30" selection-start-column="118" selection-end-line="30" selection-end-column="130" />
               <folding />
             </state>
           </provider>
@@ -130,21 +124,21 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="index.html" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/app/templates/index.html">
+      <file leaf-file-name="register.html" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/app/templates/users/register.html">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="-11.636364">
-              <caret line="16" column="6" selection-start-line="16" selection-start-column="6" selection-end-line="16" selection-end-column="6" />
+            <state vertical-scroll-proportion="-14.545455">
+              <caret line="20" column="14" selection-start-line="20" selection-start-column="14" selection-end-line="20" selection-end-column="14" />
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="base.html" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/app/templates/base.html">
+      <file leaf-file-name="index.html" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/app/templates/index.html">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="-24.151516">
-              <caret line="55" column="0" selection-start-line="55" selection-start-column="0" selection-end-line="55" selection-end-column="0" />
+            <state vertical-scroll-proportion="-11.636364">
+              <caret line="16" column="6" selection-start-line="16" selection-start-column="6" selection-end-line="16" selection-end-column="6" />
               <folding />
             </state>
           </provider>
@@ -245,22 +239,21 @@
         <option value="$PROJECT_DIR$/app/templates/users/changepassword.html" />
         <option value="$PROJECT_DIR$/app/users/adminindex.html" />
         <option value="$PROJECT_DIR$/app/users/models.py" />
-        <option value="$PROJECT_DIR$/app/static/js/script.js" />
         <option value="$PROJECT_DIR$/app/static/js/adminprofile.js" />
         <option value="$PROJECT_DIR$/app/templates/users/details.html" />
         <option value="$PROJECT_DIR$/app/templates/base.html" />
         <option value="$PROJECT_DIR$/app/templates/users/adminprofile.html" />
-        <option value="$PROJECT_DIR$/app/templates/users/adminindex.html" />
-        <option value="$PROJECT_DIR$/app/users/views.py" />
         <option value="$PROJECT_DIR$/app/templates/users/expertindex.html" />
+        <option value="$PROJECT_DIR$/app/users/views.py" />
+        <option value="$PROJECT_DIR$/app/static/js/script.js" />
+        <option value="$PROJECT_DIR$/app/templates/users/adminindex.html" />
       </list>
     </option>
   </component>
   <component name="ProjectFrameBounds">
-    <option name="x" value="-9" />
-    <option name="y" value="-9" />
-    <option name="width" value="2578" />
-    <option name="height" value="1408" />
+    <option name="x" value="1280" />
+    <option name="width" value="1280" />
+    <option name="height" value="1390" />
   </component>
   <component name="ProjectLevelVcsManager" settingsEditedManually="true">
     <OptionsSetting value="true" id="Add" />
@@ -664,20 +657,26 @@
       <option name="project" value="LOCAL" />
       <updated>1468668911623</updated>
     </task>
-    <option name="localTasksCounter" value="5" />
+    <task id="LOCAL-00005" summary="做完">
+      <created>1468674317610</created>
+      <option name="number" value="00005" />
+      <option name="project" value="LOCAL" />
+      <updated>1468674317610</updated>
+    </task>
+    <option name="localTasksCounter" value="6" />
     <servers />
   </component>
   <component name="ToolWindowManager">
-    <frame x="-9" y="-9" width="2578" height="1408" extended-state="6" />
+    <frame x="1280" y="0" width="1280" height="1390" extended-state="0" />
     <editor active="true" />
     <layout>
-      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.13998422" sideWeight="0.49130833" order="0" side_tool="false" content_ui="combo" />
+      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.28675282" sideWeight="0.49130833" order="0" side_tool="false" content_ui="combo" />
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
       <window_info id="Messages" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32985553" sideWeight="0.5" order="7" side_tool="true" content_ui="tabs" />
       <window_info id="Python Console" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32980457" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
-      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.13563403" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
+      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.42915308" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.12854889" sideWeight="0.50869167" order="2" side_tool="true" content_ui="tabs" />
@@ -726,7 +725,8 @@
     <MESSAGE value="开始做管理员" />
     <MESSAGE value="在做管理员详细界面" />
     <MESSAGE value="完成通过和驳回" />
-    <option name="LAST_COMMIT_MESSAGE" value="完成通过和驳回" />
+    <MESSAGE value="做完" />
+    <option name="LAST_COMMIT_MESSAGE" value="做完" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
@@ -780,8 +780,8 @@
           <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
           <folding>
             <element signature="e#24#62#0" expanded="true" />
-            <element signature="e#10302#11082#0" expanded="false" />
-            <element signature="e#12143#12667#0" expanded="false" />
+            <element signature="e#10545#11325#0" expanded="false" />
+            <element signature="e#12386#12910#0" expanded="false" />
           </folding>
         </state>
       </provider>
@@ -1008,30 +1008,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/app/users/models.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
-          <caret line="103" column="10" selection-start-line="103" selection-start-column="4" selection-end-line="103" selection-end-column="10" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/static/js/script.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.96802557">
-          <caret line="654" column="41" selection-start-line="654" selection-start-column="32" selection-end-line="654" selection-end-column="41" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/templates/users/register.html">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="-14.545455">
-          <caret line="20" column="14" selection-start-line="20" selection-start-column="14" selection-end-line="20" selection-end-column="14" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/app/templates/404.html">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="-5.090909">
@@ -1075,35 +1051,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/app/templates/users/adminindex.html">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.75728154">
-          <caret line="39" column="51" selection-start-line="39" selection-start-column="51" selection-end-line="39" selection-end-column="70" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/users/views.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="-12.0625">
-          <caret line="197" column="8" selection-start-line="197" selection-start-column="8" selection-end-line="197" selection-end-column="8" />
-          <caret line="198" column="8" selection-start-line="198" selection-start-column="8" selection-end-line="198" selection-end-column="8" />
-          <folding>
-            <element signature="e#24#62#0" expanded="true" />
-            <element signature="e#10302#11082#0" expanded="false" />
-            <element signature="e#12143#12667#0" expanded="false" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/templates/index.html">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="-11.636364">
-          <caret line="16" column="6" selection-start-line="16" selection-start-column="6" selection-end-line="16" selection-end-column="6" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/app/templates/users/profile.html">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="-14.181818">
@@ -1140,11 +1087,63 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/app/templates/users/expertindex.html">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.66831195">
-          <caret line="34" column="31" selection-start-line="34" selection-start-column="31" selection-end-line="34" selection-end-column="31" />
+        <state vertical-scroll-proportion="-27.060606">
+          <caret line="43" column="12" selection-start-line="43" selection-start-column="12" selection-end-line="43" selection-end-column="12" />
           <folding>
             <element signature="n#style#0;n#span#0;n#td#0;n#tr#0;n#table#0;n#div#0;n#div#1;n#!!top" expanded="true" />
           </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/templates/index.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="-11.636364">
+          <caret line="16" column="6" selection-start-line="16" selection-start-column="6" selection-end-line="16" selection-end-column="6" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/templates/users/register.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="-14.545455">
+          <caret line="20" column="14" selection-start-line="20" selection-start-column="14" selection-end-line="20" selection-end-column="14" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/users/views.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="-22.5625">
+          <caret line="212" column="36" selection-start-line="212" selection-start-column="36" selection-end-line="212" selection-end-column="36" />
+          <folding>
+            <element signature="e#24#62#0" expanded="true" />
+            <element signature="e#10545#11325#0" expanded="false" />
+            <element signature="e#12386#12910#0" expanded="false" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/users/models.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.36865672">
+          <caret line="128" column="21" selection-start-line="125" selection-start-column="13" selection-end-line="128" selection-end-column="21" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/static/js/script.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.31254995">
+          <caret line="641" column="23" selection-start-line="641" selection-start-column="23" selection-end-line="668" selection-end-column="13" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/templates/users/adminindex.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.57360405">
+          <caret line="34" column="19" selection-start-line="34" selection-start-column="19" selection-end-line="34" selection-end-column="19" />
+          <folding />
         </state>
       </provider>
     </entry>

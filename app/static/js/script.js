@@ -662,4 +662,25 @@ function CheckIsEmpty(id,form_id,words)
 			$("#ValidTime").text(data)
 		})
 	})
+	$("#UserName[name='UserName']").on('blur',function(e)
+	{
+		name=$(this).val()
+		$.post('/users/checked/',{'name':name},function(data,status)
+			{
+			    alert(data)
+				if(data=='true')
+				{
+					$("#UserName[name='UserName']").attr("data-content","用户名已被使用，请重新输入");
+					$("#UserName[name='UserName']").popover({placement:'bottom'});
+					$("#UserName[name='UserName']").popover({trigger:'manual'});
+					$("#UserName[name='UserName']").popover('show');
+
+				}
+				else
+				{
+					$("#UserName[name='UserName']").popover('hide');
+					$("#UserName[name='UserName']").popover('destroy');
+				}
+			})
+	})
 });

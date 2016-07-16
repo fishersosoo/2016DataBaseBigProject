@@ -199,6 +199,17 @@ def index_view():
         flash(unicode(alert))
     return render_template('users/expertindex.html')
 
+@mod.route('/checked/',methods=('GET', 'POST'))
+def checked_username():
+    username=request.values.get('name')
+    user=User.query.filter(User.UserName==username).first()
+    if user==None:
+        return 'true'
+    else:
+        return 1
+
+
+
 @mod.route('/changecode/',methods=('GET', 'POST'))
 @login_required
 def ChangeCode():
