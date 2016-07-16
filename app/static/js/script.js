@@ -522,7 +522,6 @@ function CheckIsEmpty(id,form_id,words)
     },
     function(data,statue)
     {
-        alert()
         if(data=='invalid')
         {
         location.reload();
@@ -553,13 +552,68 @@ function CheckIsEmpty(id,form_id,words)
     "Statue":$("#StatueQuery").val()
     },function(data,statue)
     {
-    alert(data);
+    $("#admin_head").nextAll().remove()
     var d = $.parseJSON(data);
     for(var i = 0, l = d.length; i < l; i++) {
     var one=d[i];
-    $("#admin_head").after('<tr id="admin_head"><td>'+one["ExpertCertificateID"]+'</td><td>'+one["Name"]+'</td><td>'+one["Department"]+'</td><td>'+one["MobileNum"]+'</td><td>'+one["Statue"]+'</td><td><a id="details" href=/users/admin/details/?UserName='+one["UserName"]+'>详细</a></td></tr>')
+    $("#admin_head").after('<tr"><td>'+one["ExpertCertificateID"]+'</td><td>'+one["Name"]+'</td><td>'+one["Department"]+'</td><td>'+one["MobileNum"]+'</td><td>'+one["Statue"]+'</td><td><a id="details" href=/users/admin/details/?UserName='+one["UserName"]+'>详细</a></td></tr>')
     }
     })
     })
-
+    $("#NotPass").on('click',function(e)
+    {
+		var l=$("#NotPassResult").val().length
+		$("#NotPassInput").text(l);
+		$("#NotPassLeft").text(500-l);
+		if(l>=500|l==0)
+		{
+		    $("#NotPassResultSubmit").attr('disabled',true)
+		}
+		else
+		{
+		    $("#NotPassResultSubmit").attr('disabled',false)
+		}
+    })
+    $("#NotPassResult").on('keyup',function(e)
+	{
+		var l=$("#NotPassResult").val().length
+		$("#NotPassInput").text(l);
+		$("#NotPassLeft").text(500-l);
+		if(l>=500|l==0)
+		{
+		    $("#NotPassResultSubmit").attr('disabled',true)
+		}
+		else
+		{
+		    $("#NotPassResultSubmit").attr('disabled',false)
+		}
+	})
+	$("#NotPassResultSubmit").on('click',function(e)
+	{
+		var UserName=$("#UserName").text()
+		$.post('/users/admin/NotPass/',
+		{
+			'UserName':UserName,
+			'NotPassResult':$("#NotPassResult").val(),
+		},
+		function(data,status)
+		{
+		    $("#Statue").text('已驳回')
+			$("#NotPassModal").modal('toggle');
+            $("#NotPassModal").modal('hide');
+		})
+	})
+	$("#Pass").on('click',function(e)
+	{
+		var UserName=$("#UserName").text()
+		$.post('/users/admin/Pass/',
+		{
+			'UserName':UserName
+		},function(data,status)
+		{
+			var d=$.parseJSON(data)
+			$("#ValidTime").text(d['time'])
+			$("#ExpertCertificateID").text(d['ExpertCertificateID'])
+		})
+	})
 });

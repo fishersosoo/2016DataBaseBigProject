@@ -70,6 +70,9 @@
     <tr id="admin_head">
         <th>专家编号</th><th>专家名</th><th>工作单位</th><th>联系电话</th><th>状态</th><th>操作</th>
     </tr>
+    {% for one in profile %}
+        <tr><td>{{one.ExpertCertificateID}}</td><td>{{one.Name}}</td><td>{{one.Department}}</td><td>{{one.MobileNum}}</td><td>{{one.Statue}}</td><td><a id="details" href="/users/admin/details/?UserName={{one.UserName}}">详细</a></td></tr>
+    {% endfor %}
     </tbody>
 </table>
 </div>

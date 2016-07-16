@@ -1,6 +1,6 @@
 $(document).on('ready',function(){
 var UserName=$("#UserName").text()
-$.get('/users/admin/getprofile/?'+UserName,function(data,statue)
+$.get('/users/admin/getprofile/?UserName='+UserName,function(data,statue)
 {
 var d = $.parseJSON(data);
 for(var key in d)
@@ -12,8 +12,9 @@ if(d["ExpertCertificateID"]!=null){
 $("#ExpertCertificateID").text(d["ExpertCertificateID"])
 $("#ValidTime").text(d["ValidTime"])
 }
-$('Textarea').attr("disabled",true)
-$('button').attr("disabled",true)
-$("#EditProfile").attr("disabled",false)
+$('input').attr("readonly",true)
+$('Textarea').attr("readonly",true)
+$('select').attr("disabled",true)
+$("#NotPassResult").attr("readonly",false)
 });
 })

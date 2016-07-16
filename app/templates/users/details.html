@@ -18,11 +18,35 @@
     </li>
     <li><a href="/users/logout/" >注销</a></li>
 </ul>
-<span id="UserName"class="sr-only">{% if profile.ExpertCerificateID %}{{ profile.UserName }}{% endif %}</span>
+<span id="UserName"class="sr-only">{% if profile.UserName %}{{ profile.UserName }}{% endif %}</span>
 {% endblock %}
 {% block content %}
 <div class="container" id="c_1">
 
+<p>
+    <button type="button" id="Pass" class="btn btn-primary btn-sm">通过</button>
+    <button type="button" id="NotPass" data-toggle="modal" data-target="#NotPassModal" class="btn btn-primary btn-sm">驳回</button>
+    <button type="button" id="Abort" class="btn btn-primary btn-sm">中止</button>
+</p>
+    <div id="NotPassModal" class="modal fade"  tabindex="-1" role="dialog" aria-labelledby="myModalLabel" >
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header"><button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                <h4 class="modal-title" id="QualificationLabel">驳回原因</h4>
+                已输入<span id="NotPassInput">0</span>字，还可以输入<span id="NotPassLeft">500</span>字
+            </div>
+            <div class="modal-body"><form id="NotPassResultForm"><div class="form-group" id="NewQualificationNumForm">
+                <Textarea  style='resize: none;' class="form-control"  id="NotPassResult" placeholder="驳回原因" required rows="10" ></Textarea>
+            </div>
+            </form>
+            </div>
+            <div class="modal-footer">
+                <button type="submit" id="NotPassResultSubmit" class="btn btn-primary">确认</button>
+                <button type="button" class="btn btn-default" data-dismiss="modal">取消</button>
+            </div>
+        </div>
+    </div>
+    </div>
 <table id="table_1"class="table table-bordered">
     <thead>
         <th colspan="4">

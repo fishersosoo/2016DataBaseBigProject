@@ -174,6 +174,19 @@ class Expert_info(db.Model):
         self.Others=Others
         self.Pic=Pic
 
+class Reseaon(db.Model):
+    ReseaonContext=db.Column(db.String(600))
+    UserName = db.Column(db.String(20), db.ForeignKey('user.UserName'), primary_key=True )
+    CreateTime=db.Column(db.Date)
+    Message=db.Column(db.String(20))
+    def __init__(self,ReseaonContext ,UserName,CreateTime,Message):
+        self.UserName=UserName
+        self.ReseaonContext=ReseaonContext
+        self.CreateTime=CreateTime
+        self.Message=Message
+    def save(self):
+        db.session.add(self)
+        db.session.commit()
 
 class Profile():
     def __init__(self,UserName):

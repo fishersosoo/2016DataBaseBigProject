@@ -1,8 +1,10 @@
 # -*- coding: utf-8 -*-
 from __future__ import absolute_import
 
+import hashlib
 import json
 from datetime import time
+import time
 from sqlite3 import IntegrityError
 
 from flask_bootstrap import Bootstrap
@@ -12,13 +14,43 @@ from app import app, db, login_manager
 from app.users.forms import LoginForm
 from app.users.forms import RegistrationForm
 from app.users.models import User ,Profile, Expert_info, Qualification, Appraise_experience, Working_experience, \
-    Avoid_unit
+    Avoid_unit, Reseaon
 
 mod=Blueprint('users',__name__)
 
 @login_manager.user_loader
 def load_user(user_id):
     return User.query.filter(User.UserName==user_id).first()
+
+@mod.route('/admin/NotPass/',methods=('GET','POST'))
+@login_required
+def NotPass():
+    reseaon=Reseaon.query.filter(Reseaon.UserName==request.values.get("UserName")).first()
+    if reseaon == None:
+        reseaon=Reseaon(UserName=request.values.get("UserName"),ReseaonContext=request.values.get("NotPassResult"),CreateTime=time.strftime('%Y-%m-%d',time.localtime(time.time())),Message="被驳回")
+    else:
+        reseaon.CreateTime.CreateTime=time.strftime('%Y-%m-%d',time.localtime(time.time()))
+        reseaon.Message=u"被驳回"
+        reseaon.ReseaonContext=request.values.get("NotPassResult")
+    reseaon.save()
+    expert_info=Expert_info.query.filter(Expert_info.UserName==request.values.get("UserName")).first()
+    expert_info.Statue=u'已驳回'
+    expert_info.save()
+    return 'good'
+
+@mod.route('/admin/Pass/',methods=('GET','POST'))
+@login_required
+def PassSubmit():
+    expert_info=Expert_info.query.filter(Expert_info.UserName==request.values.get("UserName")).first()
+    expert_info.Statue=u'可用'
+    md=hashlib.md5()
+    md.update(request.values.get("UserName"))
+    i=str(md.hexdigest())[1:10]
+    expert_info.ExpertCertificateID='zj-'+i
+    vt=time.localtime(time.time()+31622400)
+    expert_info.ValidTime=time.strftime('%Y-%m-%d',vt)
+    expert_info.save()
+    return json.dumps({'time':time.strftime('%Y-%m-%d',vt),'ExpertCertificateID':'zj-'+i})
 
 @mod.route('/admin/getprofile/')
 @login_required
@@ -32,6 +64,7 @@ def admin_get_profile():
     expert_info.__dict__['_sa_instance_state']=''
     print expert_info.__dict__
     return json.dumps(expert_info.__dict__)
+
 
 @mod.route('/expert/getprofile/')
 @login_required
@@ -72,20 +105,36 @@ def admin_profileall():
     List=[]
     for one in expert_infos:
         List.append({'Department':one.Department,'ExpertCertificateID':one.ExpertCertificateID,'Name':one.Name,'MobileNum':one.MobileNum,'Statue':one.Statue,'UserName':one.UserName})
-    return render_template('users/adminprofile.html')
+    return render_template('users/adminprofile.html',profile=List)
 
 @mod.route('/admin/profile/',methods=('GET','POST'))
 @login_required
 def admin_profile():
+    List=[]
     area=request.values.get('Area')
     statue=request.values.get('Statue')
-    List=[]
-    expert_infos=Expert_info.query.filter(Expert_info.ReviewAreaOne==area,Expert_info.Statue==statue).all()
-    for one in expert_infos:
-        List.append({'Department':one.Department,'ExpertCertificateID':one.ExpertCertificateID,'Name':one.Name,'MobileNum':one.MobileNum,'Statue':one.Statue,'UserName':one.UserName})
-    expert_infos=Expert_info.query.filter(Expert_info.ReviewAreaTwo==area,Expert_info.Statue==statue).all()
-    for one in expert_infos:
-        List.append({'Department':one.Department,'ExpertCertificateID':one.ExpertCertificateID,'Name':one.Name,'MobileNum':one.MobileNum,'Statue':one.Statue,'UserName':one.UserName})
+    if area!='' and statue!='':
+        expert_infos=Expert_info.query.filter(Expert_info.ReviewAreaOne==area,Expert_info.Statue==statue).all()
+        for one in expert_infos:
+            List.append({'Department':one.Department,'ExpertCertificateID':one.ExpertCertificateID,'Name':one.Name,'MobileNum':one.MobileNum,'Statue':one.Statue,'UserName':one.UserName})
+        expert_infos=Expert_info.query.filter(Expert_info.ReviewAreaTwo==area,Expert_info.Statue==statue).all()
+        for one in expert_infos:
+            List.append({'Department':one.Department,'ExpertCertificateID':one.ExpertCertificateID,'Name':one.Name,'MobileNum':one.MobileNum,'Statue':one.Statue,'UserName':one.UserName})
+    if area=='' and statue!='':
+        expert_infos=Expert_info.query.filter(Expert_info.Statue==statue).all()
+        for one in expert_infos:
+            List.append({'Department':one.Department,'ExpertCertificateID':one.ExpertCertificateID,'Name':one.Name,'MobileNum':one.MobileNum,'Statue':one.Statue,'UserName':one.UserName})
+    if area!='' and statue=='':
+        expert_infos=Expert_info.query.filter(Expert_info.ReviewAreaOne==area).all()
+        for one in expert_infos:
+            List.append({'Department':one.Department,'ExpertCertificateID':one.ExpertCertificateID,'Name':one.Name,'MobileNum':one.MobileNum,'Statue':one.Statue,'UserName':one.UserName})
+        expert_infos=Expert_info.query.filter(Expert_info.ReviewAreaTwo==area).all()
+        for one in expert_infos:
+            List.append({'Department':one.Department,'ExpertCertificateID':one.ExpertCertificateID,'Name':one.Name,'MobileNum':one.MobileNum,'Statue':one.Statue,'UserName':one.UserName})
+    if area=='' and statue=='':
+            expert_infos=Expert_info.query.filter().all()
+            for one in expert_infos:
+                List.append({'Department':one.Department,'ExpertCertificateID':one.ExpertCertificateID,'Name':one.Name,'MobileNum':one.MobileNum,'Statue':one.Statue,'UserName':one.UserName})
     return json.dumps(List)
 
 @mod.route('/login/',methods=('GET','POST'))
@@ -114,10 +163,12 @@ def login_view():
     return render_template('users/login.html')
 
 @mod.route('/login/admin')
+@login_required
 def login_admin():
     return render_template('users/adminindex.html')
 
 @mod.route('/login/index')
+@login_required
 def index_view():
     return render_template('users/expertindex.html')
 
@@ -140,6 +191,7 @@ def ChangeCode():
 
 
 @mod.route('/admin/details/',methods=('GET', 'POST'))
+@login_required
 def details():
     UserName=request.values.get('UserName')
     the_profile=Profile(UserName)
