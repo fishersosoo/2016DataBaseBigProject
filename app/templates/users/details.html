@@ -1,0 +1,382 @@
+{% extends "base.html" %}
+{% import "bootstrap/wtf.html" as wtf %}
+{% import "bootstrap/fixes.html" as fixes %}
+{% import "bootstrap/utils.html" as util %}
+      {% block extendscript %}
+<script src="/static/js/adminprofile.js"></script>
+      {% endblock extendscript %}
+{% block navbar %}
+        <li><a href="/users/admin/index/" >首页<span class="sr-only">(current)</span></a></li>
+        <li><a href="/users/admin/profile/all/" >专家信息维护</a></li>
+        <li class="active"><a href="/users/admin/detail/" >专家详细页面<span class="sr-only">(current)</span></a></li>
+{% endblock %}
+{% block navbarright %}
+<ul class="nav navbar-nav navbar-right">
+    <li><a href="#" class="btn btn-default btn-lg disabled" role="button">{% if current_user.is_authenticated %}
+  Hi {{ current_user.UserName }} !
+{% endif %}</a>
+    </li>
+    <li><a href="/users/logout/" >注销</a></li>
+</ul>
+<span id="UserName"class="sr-only">{% if profile.ExpertCerificateID %}{{ profile.UserName }}{% endif %}</span>
+{% endblock %}
+{% block content %}
+<div class="container" id="c_1">
+
+<table id="table_1"class="table table-bordered">
+    <thead>
+        <th colspan="4">
+            <h4 style="vertical-align:middle">基本信息</h4>
+        </th>
+    </thead>
+    <tr>
+    <tr>
+        <td style="vertical-align:middle">专家证书编号</td>
+    <td id="ExpertCertificateID">
+    {% if profile.ExpertCerificateID %}
+        {{ profile.ExpertCerificateID }}
+    {% endif %}
+    </td>
+    <td style="vertical-align:middle">状态</td>
+    <td id="Statue" style="color:red">
+    {% if profile.Status %}
+        {{ profile.Status }}
+    {% endif %}
+    </td>
+    </tr>
+    <tr>
+        <td style="vertical-align:middle">证书有效时间</td>
+        <td id="ValidTime">
+        {% if profile %}
+            {{ profile.ValidTime }}
+        {% endif %}
+        </td>
+        <td rowspan="4" colspan="2" style="text-align:center">
+            <img id="Pic" src="/static/img/head.png" alt="/static/img/defaulthead.jpeg" class="img-thumbnail" width="140" height="140">
+        </td>
+    </tr>
+    <tr>
+        <td style="vertical-align:middle"><span style="color:red">*</span>专家姓名</td>
+        <td>
+            <input type="text" class="form-control" id="Name" aria-describedby="Name"  placeholder="姓名" base="true" required >
+        </td>
+    </tr>
+    <tr>
+        <td style="vertical-align:middle">
+            <span style="color:red">*</span>专家性别
+        </td>
+        <td>
+            <select id="Sex" class="form-control" base="true">
+              <option>女</option>
+              <option>男</option>
+            </select>
+
+        </td>
+    </tr>
+    <tr>
+        <td style="vertical-align:middle">
+           <span style="color:red">*</span>出生日期
+        </td>
+        <td>
+            <input type="date" class="form-control" id="Birthday" aria-describedby="Name" dataformatas="yyyy-mm-dd" placeholder="xxxx-xx-xx" required base="true">
+        </td>
+    </tr>
+    <tr>
+        <td style="vertical-align:middle">
+            <span style="color:red">*</span>政治面貌
+        </td>
+        <td>
+            <input type="text" class="form-control" id="PoliticalStatus" aria-describedby="Name"  placeholder="政治面貌" required base="true">
+        </td>
+        <td style="vertical-align:middle">
+            <span style="color:red">*</span>证件类型
+        </td>
+        <td>
+            <select id="Identification" class="form-control" base="true">
+              <option>居民身份证</option>
+              <option>护照</option>
+            </select>
+        </td>
+    </tr>
+    <tr>
+        <td style="vertical-align:middle">
+            <span style="color:red">*</span>颁发机构
+        </td>
+        <td>
+            <input type="text" class="form-control" id="Organization" aria-describedby="Name"  placeholder="颁发机构" required base="true">
+        </td>
+        <td style="vertical-align:middle">
+            <span style="color:red">*</span>证件编号
+        </td>
+        <td>
+            <input type="text" class="form-control" id="IDNo" aria-describedby="Name"  placeholder="证件编号" required base="true">
+        </td>
+    </tr>
+    <tr>
+        <td style="vertical-align:middle">
+            <span style="color:red">*</span>最高学历
+        </td>
+        <td>
+            <select id="EducationalBackground" class="form-control" base="true">
+              <option>博士研究生</option>
+              <option>硕士研究生</option>
+              <option>学士</option>
+              <option>小学没毕业</option>
+            </select>
+        </td>
+        <td style="vertical-align:middle">
+            <span style="color:red">*</span>最高学位
+        </td>
+        <td>
+            <select id="Degree" class="form-control"base="true">
+              <option>博士</option>
+              <option>硕士</option>
+              <option>学士</option>
+              <option>无</option>
+            </select>
+        </td>
+    </tr>
+    <tr>
+        <td style="vertical-align:middle">
+            <span style="color:red">*</span>职称
+        </td>
+        <td>
+            <input type="text" class="form-control" id="Title" aria-describedby="Name"  placeholder="职称" required base="true">
+        </td>
+        <td style="vertical-align:middle">
+            <span style="color:red">*</span>证书编号
+        </td>
+        <td>
+            <input type="text" class="form-control" id="CertificateID" aria-describedby="Name"  placeholder="证书编号" required base="true">
+        </td>
+    </tr>
+    <tr>
+        <td style="vertical-align:middle">
+            <span style="color:red">*</span>职务
+        </td>
+        <td>
+            <input type="text" class="form-control" id="Job" aria-describedby="Name"  placeholder="职称" required base="true">
+        </td>
+        <td style="vertical-align:middle">
+            <span style="color:red">*</span>从业时长
+        </td>
+        <td>
+            <select id="WorkingTime" class="form-control" base="true">
+              <option>五年及以上</option>
+              <option>四年</option>
+              <option>三年</option>
+              <option>两年</option>
+              <option>一年及以上</option>
+            </select>
+        </td>
+    </tr>
+    <tr>
+        <td style="vertical-align:middle">
+            <span style="color:red">*</span>是否退休
+        </td>
+        <td>
+            <select id="IsRetire" class="form-control" base="true">
+              <option>是</option>
+              <option>否</option>
+            </select>
+        </td>
+        <td style="vertical-align:middle">
+            <span style="color:red">*</span>是否兼职
+        </td>
+        <td>
+            <select id="IsParttime" class="form-control" base="true">
+              <option>是</option>
+              <option>否</option>
+            </select>
+        </td>
+    </tr>
+    <tr>
+        <td style="vertical-align:middle">
+            <span style="color:red">*</span>工作单位
+        </td>
+        <td  colspan="3">
+            <input type="text" class="form-control" id="Department" aria-describedby="Name"  placeholder="工作单位" required base="true">
+        </td>
+    </tr>
+    <tr>
+        <td style="vertical-align:middle">
+            <span style="color:red">*</span>详细通讯地址
+        </td>
+        <td  colspan="3">
+            <input type="text" class="form-control" id="Address" aria-describedby="Name"  placeholder="详细通讯地址" required base="true">
+        </td>
+    </tr>
+    <tr>
+        <td style="vertical-align:middle">
+            <span style="color:red">*</span>邮政编码
+        </td>
+        <td>
+            <input type="text" class="form-control" id="ZipCode" aria-describedby="Name"  placeholder="邮政编码" required base="true">
+        </td>
+        <td style="vertical-align:middle">
+            <span style="color:red">*</span>电子邮件
+        </td>
+        <td>
+            <input type="email" class="form-control" id="Email" aria-describedby="EmailStatus"  placeholder="电子邮件" required base="true">
+        </td>
+    </tr>
+    <tr>
+        <td style="vertical-align:middle">
+            <span style="color:red">*</span>移动电话
+        </td>
+        <td>
+            <input type="tel" class="form-control" id="MobileNum" aria-describedby="Name"  placeholder="移动电话" required base="true">
+        </td>
+        <td style="vertical-align:middle">
+            <span style="color:red">*</span>家庭电话
+        </td>
+        <td>
+            <input type="tel" class="form-control" id="HomeNum" aria-describedby="Name"  placeholder="家庭电话" required base="true">
+        </td>
+    </tr>
+    <tr>
+        <td style="vertical-align:middle">
+            <span style="color:red">*</span>毕业院校及专业
+        </td>
+        <td  colspan="3">
+            <input type="text" class="form-control" id="GraduatedFrom" aria-describedby="Name"  placeholder="毕业院校及专业" required base="true">
+        </td>
+    </tr>
+    <span id="QualificationNum" class="sr-only">{% if profile.QualificationNum %}{{profile.QualificationNum}}{%else%}1{% endif %}</span>
+    <div id="QualificationPart">
+    <tr id="QualificationHeadRow">
+        <td id="QualificationHead" style="vertical-align:middle" {% if profile.QualificationNum %} rowspan={{profile.QualificationNum}} {% endif %}>
+            资格证书名及编号
+        </td>
+        <td>资格证书名</td>
+        <td >资格证书编号</td>
+        <td></td>
+        </td>
+    </tr>
+    {% for one in profile.Qualifications %}
+    <tr>
+        <td>{{one.QualificationName}}</td>
+        <td>{{one.QualificationID}}</td>
+        <td></td>
+    </tr>
+    {% endfor %}
+    </div>
+    <tr>
+
+        <td style="vertical-align:middle">
+            <span style="color:red">*</span>评审领域
+        </td>
+        <td id="ReviewArea">
+            <span id="Area1">{% if profile.ReviewAreaOne %}{{profile.ReviewAreaOne}}{% endif %}</span><span>;</span><span id="Area2">{% if profile.ReviewAreaTwo %}{{profile.ReviewAreaTwo}}{% endif %}</span>
+
+        </td>
+        <td >
+            <span id="AreaNum" class="sr-only">{% if profile.ReviewAreaTwo %}2{% else %}{% if profile.ReviewAreaOne %}1{%else%}0{% endif %}{% endif %}</span>
+            <!--选择评审领域 -->
+        </td>
+        <td>
+        </td>
+    </tr>
+    </table>
+        <table class="table table-bordered" id="table_2" >
+            <thead>
+                <th colspan="5" style="vertical-align:middle">
+                    评估/评审经历
+                </th>
+            </thead>
+             <tr id="Ahead">
+                <th >时间</th><th>任务名称</th><th>任务描述</th><th>任务类型</th>
+             </tr>
+            {% for one in profile.Appraise_experiences  %}
+            <tr id="{{one.ID}}">
+                <td>{{one.AppraiseTime}}</td><td>{{one.TaskName}}</td><td>{{one.TaskDes}}</td><td>{{one.TaskType}}</td>
+
+             </tr>
+            {% endfor %}
+        </table>
+
+    <tr>
+        <td colspan="4">
+        <table id="table_3"class="table table-bordered" >
+            <thead>
+                <th colspan="8">
+                    工作经历</button>
+                </th>
+            </thead>
+            <tr id="Whead">
+                <th width="120">起始时间</th><th width="120">终止时间</th><th >工作单位</th><th width="120">职务</th><th >证明人</th>
+            </tr>
+            {% for one in profile.Working_experiences  %}
+            <tr id={{one.ID}}><!-- ID用序号+名字来区分 -->
+                <td>{{one.StartTime}}</td><td>{{one.EndTime}}</td><td>{{one.Unit}}</td><td>{{one.Duty}}</td><td>{{one.Witness}}</td>
+
+             </tr>
+            {% endfor %}
+        </table>
+        </td>
+    </tr>
+    <tr>
+        <tb>
+            <table class="table table-bordered" >
+                <thead>
+                    <th colspan="8">
+                        业务专长(不超过300字)
+                    </th>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td rowspan="4"  colspan="8" >
+                            <Textarea style='resize: none;' class="form-control"  id="Skill" placeholder="业务专长" required rows="10" >{% if profile.Skill %}{{ profile.Skill }}{% endif %}</Textarea>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </tb>
+    </tr>
+
+<table class="table table-bordered" >
+        <thead>
+        <th colspan="8">
+            工作业绩(不超过300字)
+        </th>
+    </thead>
+    <tbody>
+        <tr>
+            <td rowspan="4"  colspan="8" >
+                <Textarea  style='resize: none;' class="form-control"  id="Achievement" placeholder="工作业绩" required rows="10" >{% if profile.Achievement %}{{ profile.Achievement }}{% endif %}</Textarea>
+            </td>
+        </tr>
+    </tbody>
+</table>
+<table id="table_4" class="table table-bordered" >
+    <thead>
+        <th colspan="8">
+            回避单位
+        </th>
+    </thead>
+    <tr id="AvoidH">
+        <th >单位名称</td><th width="120">是否工作单位</th>
+    </tr>
+    {% for one in profile.Avoid_units  %}
+    <tr id={{one.ID}}><!-- ID用序号+名字来区分 -->
+        <td>{{one.UnitName}}</td><td>{{one.IsWorking}}</td>
+
+    </tr>
+    {% endfor %}
+</table>
+<table class="table table-bordered" >
+        <thead>
+        <th colspan="8">
+            其他说明(不超过300字)
+        </th>
+    </thead>
+    <tbody>
+        <tr>
+            <td rowspan="4"  colspan="8" >
+                <Textarea  style='resize: none;' class="form-control"  id="Others" placeholder="其他说明" required rows="10" >{% if profile.Others %}{{ profile.Others }}{% endif %}</Textarea>
+            </td>
+        </tr>
+    </tbody>
+</table>
+</div>
+{% endblock %}

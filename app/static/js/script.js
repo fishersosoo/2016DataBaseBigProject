@@ -545,4 +545,21 @@ function CheckIsEmpty(id,form_id,words)
             $("#New_Code").popover('show');
         }
     })
+    $("#QueryForm").on('click',"#Query",function(e)
+    {
+    e.preventDefault()
+    $.post('/users/admin/profile/',{
+    "Area":$("#AreaQuery").val(),
+    "Statue":$("#StatueQuery").val()
+    },function(data,statue)
+    {
+    alert(data);
+    var d = $.parseJSON(data);
+    for(var i = 0, l = d.length; i < l; i++) {
+    var one=d[i];
+    $("#admin_head").after('<tr id="admin_head"><td>'+one["ExpertCertificateID"]+'</td><td>'+one["Name"]+'</td><td>'+one["Department"]+'</td><td>'+one["MobileNum"]+'</td><td>'+one["Statue"]+'</td><td><a id="details" href=/users/admin/details/?UserName='+one["UserName"]+'>详细</a></td></tr>')
+    }
+    })
+    })
+
 });

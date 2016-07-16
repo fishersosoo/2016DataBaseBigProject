@@ -20,6 +20,19 @@ mod=Blueprint('users',__name__)
 def load_user(user_id):
     return User.query.filter(User.UserName==user_id).first()
 
+@mod.route('/admin/getprofile/')
+@login_required
+def admin_get_profile():
+    UserName=request.values.get("UserName")
+    expert_info=Expert_info.query.filter(Expert_info.UserName==UserName).first()
+    if(expert_info.__dict__['Birthday']!=None):
+        expert_info.__dict__['Birthday']=expert_info.__dict__['Birthday'].isoformat()
+    if(expert_info.__dict__['ValidTime']!=None):
+        expert_info.__dict__['ValidTime']=expert_info.__dict__['ValidTime'].isoformat()
+    expert_info.__dict__['_sa_instance_state']=''
+    print expert_info.__dict__
+    return json.dumps(expert_info.__dict__)
+
 @mod.route('/expert/getprofile/')
 @login_required
 def getprofile():
@@ -58,19 +71,22 @@ def admin_profileall():
     expert_infos=Expert_info.query.filter().all()
     List=[]
     for one in expert_infos:
-        List.append({'ExpertCertificateID':one.ExpertCertificateID,'ExpertCertificateID':one.ExpertCertificateID,'Name':one.Name,'MobileNum':one.MobileNum,'Statue':one.Statue,'UserName':one.UserName})
+        List.append({'Department':one.Department,'ExpertCertificateID':one.ExpertCertificateID,'Name':one.Name,'MobileNum':one.MobileNum,'Statue':one.Statue,'UserName':one.UserName})
     return render_template('users/adminprofile.html')
 
-@mod.route('/admin/profile/')
+@mod.route('/admin/profile/',methods=('GET','POST'))
 @login_required
 def admin_profile():
     area=request.values.get('Area')
     statue=request.values.get('Statue')
-    expert_infos=Expert_info.query.filter(Expert_info.ReviewAreaOne==area|Expert_info.ReviewAreaTwo==area,Expert_info.Statue==statue).all()
     List=[]
+    expert_infos=Expert_info.query.filter(Expert_info.ReviewAreaOne==area,Expert_info.Statue==statue).all()
     for one in expert_infos:
-        List.append({'ExpertCertificateID':one.ExpertCertificateID,'ExpertCertificateID':one.ExpertCertificateID,'Name':one.Name,'MobileNum':one.MobileNum,'Statue':one.Statue,'UserName':one.UserName})
-    return List
+        List.append({'Department':one.Department,'ExpertCertificateID':one.ExpertCertificateID,'Name':one.Name,'MobileNum':one.MobileNum,'Statue':one.Statue,'UserName':one.UserName})
+    expert_infos=Expert_info.query.filter(Expert_info.ReviewAreaTwo==area,Expert_info.Statue==statue).all()
+    for one in expert_infos:
+        List.append({'Department':one.Department,'ExpertCertificateID':one.ExpertCertificateID,'Name':one.Name,'MobileNum':one.MobileNum,'Statue':one.Statue,'UserName':one.UserName})
+    return json.dumps(List)
 
 @mod.route('/login/',methods=('GET','POST'))
 def login_view():
@@ -121,6 +137,16 @@ def ChangeCode():
     else:
         flash(u"密码错误",category=u'success')
         return 'invalid'
+
+
+@mod.route('/admin/details/',methods=('GET', 'POST'))
+def details():
+    UserName=request.values.get('UserName')
+    the_profile=Profile(UserName)
+    the_profile.UserName=UserName
+    the_profile.ReviewAreaOne=Expert_info.query.filter(Expert_info.UserName==UserName).first().ReviewAreaOne
+    the_profile.ReviewAreaTwo=Expert_info.query.filter(Expert_info.UserName==UserName).first().ReviewAreaTwo
+    return render_template('users/details.html',profile=the_profile)
 
 
 @mod.route('/register/', methods=('GET', 'POST'))
