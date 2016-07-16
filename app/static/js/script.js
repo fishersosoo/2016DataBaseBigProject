@@ -616,4 +616,50 @@ function CheckIsEmpty(id,form_id,words)
 			$("#ExpertCertificateID").text(d['ExpertCertificateID'])
 		})
 	})
+		//Abort
+	$("#Abort").on('click',function(e)
+    {
+		var l=$("#AbortText").val().length
+		$("#AbortInput").text(l);
+		$("#AbortLeft").text(500-l);
+		if(l>=500|l==0)
+		{
+		    $("#AbortSubmit").attr('disabled',true)
+		}
+		else
+		{
+		    $("#AbortSubmit").attr('disabled',false)
+		}
+    })
+
+    $("#AbortText").on('keyup',function(e)
+	{
+		var l=$("#AbortText").val().length
+		$("#AbortInput").text(l);
+		$("#AbortLeft").text(500-l);
+		if(l>=500|l==0)
+		{
+		    $("#AbortSubmit").attr('disabled',true)
+		}
+		else
+		{
+		    $("#AbortSubmit").attr('disabled',false)
+		}
+	})
+	$("#AbortSubmit").on('click',function(e)
+	{
+		var UserName=$("#UserName").text()
+		$.post('/users/admin/Abort/',
+		{
+			'UserName':UserName,
+			'NotPassResult':$("#AbortText").val(),
+		},
+		function(data,status)
+		{
+		    $("#Statue").text('失效')
+			$("#AbortModal").modal('toggle');
+            $("#AbortModal").modal('hide');
+			$("#ValidTime").text(data)
+		})
+	})
 });

@@ -6,9 +6,9 @@
 <link href="/static/css/cover.css" rel="stylesheet">
       {% endblock extendscript %}
 {% block navbar %}
-        <li><a href="/users/admin/index/" >首页<span class="sr-only">(current)</span></a></li>
+        <li><a href="/users/login/admin" >首页<span class="sr-only">(current)</span></a></li>
         <li class="active"><a href="/users/admin/profile/all/" >专家信息维护<span class="sr-only">(current)</span></a></li>
-        <li><a href="/users/admin/detail/" >专家详细页面</a></li>
+        <li><a href="/users/admin/profile/all/" >专家详细页面</a></li>
 {% endblock %}
 
 {% block navbarright %}
@@ -31,6 +31,7 @@
     </div>
   {% endblock  %}
 {% block content %}
+<span id="wait" class="sr-only">{% if wait %}true{% endif %}</span>
 <div class="container">
 <table id="table_admin_1"class="table table-bordered">
     <thead >

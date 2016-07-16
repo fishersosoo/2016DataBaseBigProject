@@ -34,116 +34,13 @@
     <div class="container">
       <div class="blog-header">
         <h1 class="blog-title">填表须知</h1>
-        <p class="lead blog-description">数据库逻辑关系</p>
+        <p class="lead blog-description">填写前请仔细阅读以下注意事项</p>
+        <table class="table table-hover">
+            <tr><td>1.带<span style="color:red">*</span>为必须填写，且在提交之后不能修改</td></tr>
+            <tr><td>2.证书编号和证书有效时间由管理员在审核通过之后进行填写，用户不得自己填写</td></tr>
+            <tr><td>3.日期均从日历中选择，用户不得自己填写</td></tr>
+            <tr><td>4.回避单位是用户曾经工作过的单位或者正在工作的单位</td></tr>
+        </table>
       </div>
-<hr>
-<h2>E-R图</h2>
-
-<p><a href="https://camo.githubusercontent.com/ac641ad60d381c120e8fb161500a7e23717a23d2/687474703a2f2f692e696d6775722e636f6d2f6d6e3764784e682e706e67" target="_blank"><img src="https://camo.githubusercontent.com/ac641ad60d381c120e8fb161500a7e23717a23d2/687474703a2f2f692e696d6775722e636f6d2f6d6e3764784e682e706e67" alt="" data-canonical-src="http://i.imgur.com/mn7dxNh.png" style="max-width:30%;"></a></p>
-<h2>逻辑模式</h2>
-
-<ul>
-<li>user
-
-<ul>
-<li>UserName(primary key)</li>
-<li>Password</li>
-<li>Type</li>
-</ul>
-</li>
-</ul>
-
-<p> </p>
-
-<ul>
-<li>expert_info
-
-<ul>
-<li>UserName(primary key, reference user on UserName)</li>
-<li>Statue</li>
-<li>ExpertCerificateID(Unipue)</li>
-<li>ValidTime</li>
-<li>Name</li>
-<li>Sex</li>
-<li>Birthday</li>
-<li>PoliticalStatus</li>
-<li>Organization</li>
-<li>EducationalBackground</li>
-<li>Degree</li>
-<li>Identification</li>
-<li>IDNo</li>
-<li>Title</li>
-<li>CertificateID</li>
-<li>Job</li>
-<li>WorkingTime</li>
-<li>IsRetire</li>
-<li>IsParttime</li>
-<li>Department</li>
-<li>Address</li>
-<li>Email</li>
-<li>ZipCode</li>
-<li>MobileNum</li>
-<li>HomeNum</li>
-<li>GraduatedFrom</li>
-<li>ReviewAreaOne</li>
-<li>ReviewAreaTwo</li>
-<li>Skill</li>
-<li>Achievement</li>
-<li>Others</li>
-<li>Pic</li>
-</ul>
-</li>
-</ul>
-
-<p></p>
-
-<ul>
-<li>avoid_unit
-
-<ul>
-<li>UserName(primarykey, reference expert_info on UserName)</li>
-<li>UnitName(primarykey)</li>
-<li>IsWorking</li>
-</ul>
-</li>
-</ul>
-
-<p></p>
-
-<ul>
-<li>qualification
-
-<ul>
-<li>QulificationName</li>
-<li>QulificationID(primarykey)</li>
-<li>UserName(reference expert_info on UserName)
-<p></p>
-</li>
-</ul>
-</li>
-<li>appraise_experience
-
-<ul>
-<li>AppraiseTime(primarykey)</li>
-<li>TaskName(primarykey)</li>
-<li>TaskDes(primarykey)</li>
-<li>TaskType(primarykey)</li>
-<li>UserName(primarykey, reference expert_info on UserName)</li>
-</ul>
-</li>
-</ul>
-
-<p></p>
-
-<ul>
-<li>working_experience
-
-<ul>
-<li>UserName(primarykey, reference expert_info on UserName)</li>
-<li>StartTime(primarykey)</li>
-<li>EndTime(primarykey)</li>
-<li>Unit(primarykey)</li>
-<li>Duty(primarykey)</li>
-<li>Witness(primarykey)</li></ul></li></ul>
-    </div>
+</div>
 {% endblock %}

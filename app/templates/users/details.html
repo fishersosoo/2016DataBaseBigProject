@@ -6,9 +6,9 @@
 <script src="/static/js/adminprofile.js"></script>
       {% endblock extendscript %}
 {% block navbar %}
-        <li><a href="/users/admin/index/" >首页<span class="sr-only">(current)</span></a></li>
+        <li><a href="/users/login/admin" >首页<span class="sr-only">(current)</span></a></li>
         <li><a href="/users/admin/profile/all/" >专家信息维护</a></li>
-        <li class="active"><a href="/users/admin/detail/" >专家详细页面<span class="sr-only">(current)</span></a></li>
+        <li class="active"><a href="/users/admin/profile/all/" >专家详细页面<span class="sr-only">(current)</span></a></li>
 {% endblock %}
 {% block navbarright %}
 <ul class="nav navbar-nav navbar-right">
@@ -26,7 +26,7 @@
 <p>
     <button type="button" id="Pass" class="btn btn-primary btn-sm">通过</button>
     <button type="button" id="NotPass" data-toggle="modal" data-target="#NotPassModal" class="btn btn-primary btn-sm">驳回</button>
-    <button type="button" id="Abort" class="btn btn-primary btn-sm">中止</button>
+    <button type="button" id="Abort" data-toggle="modal" data-target="#AbortModal" class="btn btn-primary btn-sm">中止</button>
 </p>
     <div id="NotPassModal" class="modal fade"  tabindex="-1" role="dialog" aria-labelledby="myModalLabel" >
     <div class="modal-dialog" role="document">
@@ -42,6 +42,27 @@
             </div>
             <div class="modal-footer">
                 <button type="submit" id="NotPassResultSubmit" class="btn btn-primary">确认</button>
+                <button type="button" class="btn btn-default" data-dismiss="modal">取消</button>
+            </div>
+        </div>
+    </div>
+    </div>
+    <div id="AbortModal" class="modal fade"  tabindex="-1" role="dialog" aria-labelledby="myModalLabel" >
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header"><button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                <h4 class="modal-title" id="AbortModalLabel">中止原因</h4>
+                已输入<span id="AbortInput">0</span>字，还可以输入<span id="AbortLeft">500</span>字
+            </div>
+            <div class="modal-body">
+            <form id="AbortForm">
+                <div class="form-group" id="AbortFG">
+                <Textarea  style='resize: none;' class="form-control"  id="AbortText" placeholder="中止原因" required rows="10" ></Textarea>
+            </div>
+            </form>
+            </div>
+            <div class="modal-footer">
+                <button type="submit" id="AbortSubmit" class="btn btn-primary">确认</button>
                 <button type="button" class="btn btn-default" data-dismiss="modal">取消</button>
             </div>
         </div>

@@ -22,6 +22,24 @@ mod=Blueprint('users',__name__)
 def load_user(user_id):
     return User.query.filter(User.UserName==user_id).first()
 
+@mod.route('/admin/Abort/',methods=('GET','POST'))
+@login_required
+def Abort():
+    t=time.localtime(time.time()-7200)
+    reseaon=Reseaon.query.filter(Reseaon.UserName==request.values.get("UserName")).first()
+    if reseaon == None:
+        reseaon=Reseaon(UserName=request.values.get("UserName"),ReseaonContext=request.values.get("NotPassResult"),CreateTime=time.strftime('%Y-%m-%d',t),Message="被中止")
+    else:
+        reseaon.CreateTime=time.strftime('%Y-%m-%d',t)
+        reseaon.Message=u"被中止"
+        reseaon.ReseaonContext=request.values.get("NotPassResult")
+    reseaon.save()
+    expert_info=Expert_info.query.filter(Expert_info.UserName==request.values.get("UserName")).first()
+    expert_info.Statue=u'失效'
+    expert_info.ValidTime=time.strftime('%Y-%m-%d',t)
+    expert_info.save()
+    return time.strftime('%Y-%m-%d',t)
+
 @mod.route('/admin/NotPass/',methods=('GET','POST'))
 @login_required
 def NotPass():
@@ -101,7 +119,10 @@ def expertindex():
 @mod.route('/admin/profile/all/')
 @login_required
 def admin_profileall():
-    expert_infos=Expert_info.query.filter().all()
+    if request.values.get('wait')!=None:
+        expert_infos=Expert_info.query.filter(Expert_info.Statue=='审核中').all()
+    else:
+        expert_infos=Expert_info.query.filter().all()
     List=[]
     for one in expert_infos:
         List.append({'Department':one.Department,'ExpertCertificateID':one.ExpertCertificateID,'Name':one.Name,'MobileNum':one.MobileNum,'Statue':one.Statue,'UserName':one.UserName})
@@ -165,11 +186,17 @@ def login_view():
 @mod.route('/login/admin')
 @login_required
 def login_admin():
-    return render_template('users/adminindex.html')
+    size=Expert_info.query.filter(Expert_info.Statue=="审核中").all().__len__()
+    return render_template('users/adminindex.html',num=size)
 
 @mod.route('/login/index')
 @login_required
 def index_view():
+    user_name=current_user.UserName
+    reseaon=Reseaon.query.filter(Reseaon.UserName==user_name).first()
+    if reseaon != None:
+        alert=u"通知  @"+(reseaon.CreateTime.isoformat())+" : "+reseaon.Message+u'原因为'+reseaon.ReseaonContext
+        flash(unicode(alert))
     return render_template('users/expertindex.html')
 
 @mod.route('/changecode/',methods=('GET', 'POST'))

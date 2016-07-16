@@ -16,5 +16,6 @@ $('input').attr("readonly",true)
 $('Textarea').attr("readonly",true)
 $('select').attr("disabled",true)
 $("#NotPassResult").attr("readonly",false)
+$("#AbortText").attr("readonly",false)
 });
 })

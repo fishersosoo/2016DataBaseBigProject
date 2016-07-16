@@ -6,9 +6,9 @@
 <link href="/static/css/cover.css" rel="stylesheet">
       {% endblock extendscript %}
 {% block navbar %}
-        <li class="active"><a href="/users/admin/index/" >首页<span class="sr-only">(current)</span></a></li>
+        <li class="active"><a href="/users/login/admin" >首页<span class="sr-only">(current)</span></a></li>
         <li><a href="/users/admin/profile/all/" >专家信息维护</a></li>
-        <li><a href="/users/admin/detail/" >专家详细页面</a></li>
+        <li><a href="/users/admin/profile/all/" >专家详细页面</a></li>
 {% endblock %}
 
 {% block navbarright %}
@@ -28,7 +28,16 @@
   <div class="alert alert-success">
       <button type="button" class="close" data-dismiss="alert">×</button> {{ message }}{% endfor %}
   </div>
-    </div>
+
+</div>
+
   {% endblock  %}
 {% block content %}
+<div class="container">
+  <div class="jumbotron">
+  <h1>Welcom Back! </h1>
+  <p>系统中有{% if num %}{{num}}{%endif%}名专家等待审核</p>
+  <p><a class="btn btn-primary btn-lg" href="/users/admin/profile/all/?wait=1" role="button">查看</a></p>
+</div>
+    </div>
 {% endblock %}
